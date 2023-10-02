@@ -54,6 +54,10 @@ const Home = () => {
                 id={item?.id}
                 name={item?.name}
                 date={item?.datetime}
+                recording_data={item?.recording_data}
+                type={item?.type}
+                sharebutton={true}
+                editbutton={true}
               />
             ))}
           </div>

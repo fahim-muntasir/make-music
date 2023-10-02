@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import bg from "../../assets/bg1.jpg";
-import { PiMusicNoteDuotone } from "react-icons/pi";
 import { baseURL, apiKey } from "../../config/config.json";
 import { useParams } from "react-router-dom";
+import SingleSong from "../../components/SingleSong";
 
 const SharePage = () => {
   const [loading, setLoading] = useState(false);
@@ -146,25 +146,14 @@ const SharePage = () => {
         <h1 className="text-2xl font-semibold font-poppins mt-5">Share song</h1>
         <div className="pb-4">
           <div className="mt-4">
-            {!loading && (
-              <div className="px-4 py-4 md:py-5 lg:py-5 md:flex lg:flex bg-[#8A97DA] items-center rounded-md justify-between">
-                <div className="flex items-center mb-4 md:mb-0 lg:mb-0">
-                  <i className="fa-solid fa-music text-4xl md:text-5xl lg:text-5xl text-white"></i>
-                  <div className="ml-5">
-                    <h3 className="text-white text-3xl md:text-4xl lg:text-4xl font-bowlby">
-                      {song?.name}
-                    </h3>
-                    <p className="text-white font-poppins text-sm">
-                      {new Date(song?.datetime).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex justify-end">
-                  <button className="px-5 py-2 md:px-9 lg:px-9 md:py-2 lg:py-2 text-white font-poppins text-lg hover:bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-3">
-                    Preview
-                  </button>
-                </div>
-              </div>
+            {!loading && song.id && (
+              <SingleSong
+                id={song?.id}
+                name={song?.name}
+                date={song?.datetime}
+                recording_data={song?.recording_data}
+                type={song?.type}
+              />
             )}
           </div>
 
