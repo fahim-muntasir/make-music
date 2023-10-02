@@ -1,0 +1,141 @@
+/* Variables */
+:root {
+    --cellHeight: 40px;
+    --rowGap: 8px;
+  }
+  
+  /* Mixin */
+  /* No equivalent for SCSS mixins in regular CSS */
+  
+  .className {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  
+  .machine {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+    row-gap: 16px;
+  }
+  
+  .labelList {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--rowGap);
+  }
+  
+  .labelList > * {
+    height: var(--cellHeight);
+    display: grid;
+    place-content: center;
+  }
+  
+  .grid {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--rowGap);
+  }
+  
+  .lamp__input {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+  }
+  
+  .lamp__input:checked + .lamp__content {
+    background-color: #8bde90;
+  }
+  
+  .lamp__content {
+    width: 14px;
+    height: 14px;
+    border-radius: 8px;
+    background-color: #ccc;
+    margin: 0 8px;
+  }
+  
+  .cellList {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--rowGap);
+  }
+  
+  .row {
+    display: flex;
+    column-gap: 8px;
+  }
+  
+  .row > *:nth-child(4n):not(:last-child) {
+    margin-right: 8px;
+  }
+  
+  .cell {
+    cursor: pointer;
+  }
+  
+  .cell__input {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+  }
+  
+  .cell__input:checked + .cell__content {
+    background-color: #8A97DA;
+  }
+  
+  .cell__input:focus-visible + .cell__content {
+    outline: solid 4px #90cdf4;
+    outline-offset: 2px;
+  }
+  
+  .cell__content {
+    width: 30px;
+    height: var(--cellHeight);
+    background-color: transparent;
+    border: 1px solid #8A97DA;
+  }
+  
+  .fader {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+    grid-column: 2;
+  }
+  
+  .button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: #005da5;
+    color: white;
+    width: 80px;
+    line-height: 2;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #4281b2;
+  }
+  
