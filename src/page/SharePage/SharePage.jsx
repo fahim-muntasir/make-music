@@ -91,12 +91,6 @@ const SharePage = () => {
       // button loading state
       setShareLoading(true);
 
-      // update sharing status from location endpoint
-      await updateSharing(locationId, name, sharingCurrentStatus);
-
-      // add share collection to shareTolocation endpoint
-      await addShareToLoading(locationId);
-
       // update the frontend state
       const locationCopy = [...locations];
       const locationShareToggle = locationCopy.map((item) =>
@@ -105,6 +99,12 @@ const SharePage = () => {
 
       // set location state
       setLocations(locationShareToggle);
+
+      // update sharing status from location endpoint
+      await updateSharing(locationId, name, sharingCurrentStatus);
+
+      // add share collection to shareTolocation endpoint
+      await addShareToLoading(locationId);
 
       // button loading state
       setShareLoading(false);
@@ -118,9 +118,6 @@ const SharePage = () => {
   const notSharedHandler = async (locationId, name) => {
     setNotshareLoading(true);
     try {
-      // update sharing status from location endpoint
-      await updateSharing(locationId, name, true);
-
       // update the frontend state
       const locationCopy = [...locations];
       const locationShareToggle = locationCopy.map((item) =>
@@ -129,6 +126,9 @@ const SharePage = () => {
 
       // set location state
       setLocations(locationShareToggle);
+
+      // update sharing status from location endpoint
+      await updateSharing(locationId, name, true);
 
       setNotshareLoading(false);
     } catch (error) {

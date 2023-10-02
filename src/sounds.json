@@ -1,0 +1,38 @@
+{
+  "drums": [
+    { "url": "/drums1.mp3", "name": "B" },
+    { "url": "/drums2.mp3", "name": "A" },
+    { "url": "/drums3.mp3", "name": "G" },
+    { "url": "/drums4.mp3", "name": "F" },
+    { "url": "/drums5.mp3", "name": "E" },
+    { "url": "/drums6.mp3", "name": "D" },
+    { "url": "/drums7.mp3", "name": "C" }
+  ],
+  "guitar": [
+    { "url": "/drums1.mp3", "name": "B" },
+    { "url": "/drums2.mp3", "name": "A" },
+    { "url": "/drums3.mp3", "name": "G" },
+    { "url": "/drums4.mp3", "name": "F" },
+    { "url": "/drums5.mp3", "name": "E" },
+    { "url": "/drums6.mp3", "name": "D" },
+    { "url": "/drums7.mp3", "name": "C" }
+  ],
+  "piano": [
+    { "url": "/drums1.mp3", "name": "B" },
+    { "url": "/drums2.mp3", "name": "A" },
+    { "url": "/drums3.mp3", "name": "G" },
+    { "url": "/drums4.mp3", "name": "F" },
+    { "url": "/drums5.mp3", "name": "E" },
+    { "url": "/drums6.mp3", "name": "D" },
+    { "url": "/drums7.mp3", "name": "C" }
+  ],
+  "french horn": [
+    { "url": "/drums1.mp3", "name": "B" },
+    { "url": "/drums2.mp3", "name": "A" },
+    { "url": "/drums3.mp3", "name": "G" },
+    { "url": "/drums4.mp3", "name": "F" },
+    { "url": "/drums5.mp3", "name": "E" },
+    { "url": "/drums6.mp3", "name": "D" },
+    { "url": "/drums7.mp3", "name": "C" }
+  ]
+}

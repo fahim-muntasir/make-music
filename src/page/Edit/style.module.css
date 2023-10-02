@@ -132,19 +132,6 @@
     }
   }
   
-  .fader {
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-  }
-  
-  .controls {
-    display: flex;
-    align-items: center;
-    column-gap: 16px;
-    grid-column: 2;
-  }
-  
   .button {
     border: none;
     cursor: pointer;

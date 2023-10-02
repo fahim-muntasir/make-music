@@ -1,9 +1,163 @@
-import React, { useState } from "react";
 import bg from "../../assets/bg1.jpg";
-import DrumMachine from "../Drummachin/Drummachin";
+import sounds from "../../sounds.json";
+import React, { useState, useEffect, useRef } from "react";
+import * as Tone from "tone";
+import styles from "./style.module.css";
+import SongType from "../../components/SongType";
+import { baseURL, apiKey } from "../../config/config.json";
+import { useParams, useNavigate } from "react-router-dom";
+
+const NOTE = "C2";
 
 const Edit = () => {
-  const [activeButton, setActiveButton] = useState("Guitar");
+  const [activeButton, setActiveButton] = useState("guitar");
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [songName, setSongName] = useState("");
+  const [isloading, setIsLoading] = useState(false);
+
+  const tracksRef = useRef([]);
+  const stepsRef = useRef([[]]);
+  const lampsRef = useRef([]);
+  const seqRef = useRef(null);
+
+  const { id: songId } = useParams();
+  const navigate = useNavigate();
+
+  const samples = sounds[activeButton];
+  const numberOfSteps = 16;
+
+  const trackIds = [...Array(samples.length).keys()];
+  const stepIds = [...Array(numberOfSteps).keys()];
+
+  const handleStartClick = async () => {
+    if (Tone.Transport.state === "started") {
+      Tone.Transport.stop();
+      setIsPlaying(false);
+    } else {
+      await Tone.start();
+      Tone.Transport.start();
+      setIsPlaying(true);
+    }
+  };
+
+  const submitHandler = async () => {
+    setIsLoading(true);
+
+    const recording_data = stepsRef.current.map((trackSteps, trackId) => {
+      const trackObject = {};
+      const trackKey = String.fromCharCode(65 + trackId); // Convert 0 to "A", 1 to "B", etc.
+      trackObject[trackKey] = trackSteps.map((step) => step.checked);
+      return trackObject;
+    });
+
+    try {
+      const data = {
+        type: activeButton,
+        name: songName,
+        recording_data: JSON.stringify(recording_data),
+        api_key: apiKey,
+      };
+
+      if (songId === "new") {
+        const url = `${baseURL}/sample/?api_key=${apiKey}`;
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        await response.json();
+      } else {
+        const url = `${baseURL}/sample/${songId}/?api_key=${apiKey}`;
+        const response = await fetch(url, {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        await response.json();
+      }
+
+      setIsLoading(false);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
+  };
+
+  async function getSong(id) {
+    const url = `${baseURL}/sample/${id}/?api_key=${apiKey}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    return json;
+  }
+
+  const populateRecordingData = async () => {
+    if (songId === "new") return;
+
+    const { recording_data, type, name } = await getSong(songId);
+
+    const recordData = JSON.parse(recording_data);
+    setSongName(name);
+    setActiveButton(type);
+
+    if (recordData && Array.isArray(recordData)) {
+      recordData.forEach((trackState, trackId) => {
+        const trackKey = String.fromCharCode(65 + trackId);
+        const trackSteps = trackState[trackKey] || [];
+        trackSteps.forEach((isChecked, stepId) => {
+          if (stepsRef.current[trackId]?.[stepId]) {
+            stepsRef.current[trackId][stepId].checked = isChecked;
+          }
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    tracksRef.current = samples.map((sample, i) => ({
+      id: i,
+      sampler: new Tone.Sampler({
+        urls: {
+          [NOTE]: sample.url,
+        },
+      }).toDestination(),
+    }));
+    seqRef.current = new Tone.Sequence(
+      (time, step) => {
+        tracksRef.current.map((trk) => {
+          if (stepsRef.current[trk.id]?.[step]?.checked) {
+            trk.sampler.triggerAttack(NOTE, time);
+          }
+          lampsRef.current[step].checked = true;
+        });
+      },
+      [...stepIds],
+      "8n"
+    );
+    seqRef.current.start(0);
+
+    return () => {
+      seqRef.current?.dispose();
+      tracksRef.current.map((trk) => void trk.sampler.dispose());
+    };
+  }, [samples, numberOfSteps]);
+
+  useEffect(() => {
+    populateRecordingData();
+  }, []);
+
+  const handleCellContentClick = (trackId, stepId) => {
+    if (stepsRef.current[trackId]?.[stepId]) {
+      tracksRef.current[trackId].sampler.triggerAttackRelease(NOTE, "16n");
+    }
+  };
+
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
@@ -20,76 +174,95 @@ const Edit = () => {
           </h1>
           <div className=" py-4 mt-4 md:flex lg:flex px-5 bg-[#8A97DA] items-center rounded-md md:gap-2 lg:gap-2 md:justify-between lg:justify-between">
             <input
+              onChange={(e) => setSongName(e.target.value)}
+              value={songName}
               type="text"
               className=" mb-4 md:mb-0 lg:mb-0 py-2 rounded-md outline-none px-5 w-full md:w-96 lg:w-96"
+              placeholder="Type your song name"
             />
             <div className="flex justify-end md:block lg:block">
-              <button className="px-3 py-2 text-white font-poppins hover:bg-[#4BCE9C] rounded border border-[#4BCE9C]">
-                Preview
+              <button
+                onClick={handleStartClick}
+                className="px-3 py-2 text-white font-poppins hover:bg-[#4BCE9C] rounded border border-[#4BCE9C]"
+              >
+                {isPlaying ? "Stop Preview" : "Preview"}
               </button>
-              <button className="px-3 py-2 text-white font-poppins hover:bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-2">
+              <button
+                onClick={submitHandler}
+                className="px-3 py-2 text-white font-poppins hover:bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-2"
+                disabled={isloading}
+              >
                 Save
               </button>
+              {isloading && (
+                <i className="fa-solid fa-spinner text-lg animate-spin mr-1 text-white"></i>
+              )}
             </div>
           </div>
         </div>
-
-        <div className="my-8 flex items-center px-5">
-          <div className="w-14">
-            <h1 className="text-lg md:text-xl font-semibold font-poppins">
-              Type
-            </h1>
-          </div>
-          <div className="grid grid-cols-4 w-full">
-            <div
-              className={`md:px-9 py-2 text-lg font-poppins text-center cursor-pointer  border border-[#8A97DA] ${
-                activeButton === "Guitar" ? "bg-[#8A97DA] text-white" : ""
-              }`}
-              onClick={() => handleButtonClick("Guitar")}
-            >
-              {" "}
-              Guitar{" "}
-            </div>
-            <div
-              className={`md:px-9 py-2 text-center cursor-pointer text-lg font-poppins border-l-0  border border-[#8A97DA] ${
-                activeButton === "Piano" ? "bg-[#8A97DA] text-white" : ""
-              }`}
-              onClick={() => handleButtonClick("Piano")}
-            >
-              {" "}
-              Piano
-            </div>
-            <div
-              className={`md:px-9 py-2 text-center cursor-pointer border-l-0 text-lg font-poppins  border border-[#8A97DA] ${
-                activeButton === "Violin" ? "bg-[#8A97DA] text-white" : ""
-              }`}
-              onClick={() => handleButtonClick("Violin")}
-            >
-              Violin
-            </div>
-            <div
-              className={`md:px-9 py-2 text-center cursor-pointer text-lg font-poppins border-l-0  border border-[#8A97DA] ${
-                activeButton === "Drums" ? "bg-[#8A97DA] text-white" : ""
-              }`}
-              onClick={() => handleButtonClick("Drums")}
-            >
-              Drums
-            </div>
-          </div>
-        </div>
-
+        <SongType
+          activeButton={activeButton}
+          handleButtonClick={handleButtonClick}
+        />
         <div>
-          <DrumMachine
-            samples={[
-              { url: "/drums1.mp3", name: "A" },
-              { url: "/drums2.mp3", name: "B" },
-              { url: "/drums3.mp3", name: "C" },
-              { url: "/drums4.mp3", name: "D" },
-              { url: "/drums5.mp3", name: "E" },
-              { url: "/drums6.mp3", name: "F" },
-              { url: "/drums7.mp3", name: "G" },
-            ]}
-          />
+          <div className="flex justify-between">
+            <div className={`${styles.labelList} w-14`}>
+              {samples.map((sample) => (
+                <div key={sample.name}>{sample.name}</div>
+              ))}
+            </div>
+            <div className={styles.grid}>
+              <div className={styles.row}>
+                {stepIds.map((stepId) => (
+                  <label className={styles.lamp} key={stepId}>
+                    <input
+                      type="radio"
+                      name="lamp"
+                      id={"lamp" + "-" + stepId}
+                      disabled
+                      ref={(elm) => {
+                        if (!elm) return;
+                        lampsRef.current[stepId] = elm;
+                      }}
+                      className={styles.lamp__input}
+                    />
+                    <div className={styles.lamp__content} />
+                  </label>
+                ))}
+              </div>
+              <div className={styles.cellList}>
+                {trackIds.map((trackId) => (
+                  <div key={trackId} className={styles.row}>
+                    {stepIds.map((stepId) => {
+                      const id = trackId + "-" + stepId;
+                      return (
+                        <label className={styles.cell} key={id}>
+                          <input
+                            id={id}
+                            type="checkbox"
+                            ref={(elm) => {
+                              if (!elm) return;
+                              if (!stepsRef.current[trackId]) {
+                                stepsRef.current[trackId] = [];
+                              }
+                              stepsRef.current[trackId][stepId] = elm;
+                            }}
+                            className={styles.cell__input}
+                          />
+                          <div
+                            className={styles.cell__content}
+                            onClick={() =>
+                              handleCellContentClick(trackId, stepId)
+                            }
+                          />
+                        </label>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
