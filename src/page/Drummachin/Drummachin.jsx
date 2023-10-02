@@ -96,59 +96,61 @@ export default function DrumMachine({ samples, numOfSteps = 16 }) {
   };
 
   return (
-    <div className={styles.machine}>
-      <div className={styles.labelList}>
-        {samples.map((sample) => (
-          <div key={sample.name}>{sample.name}</div>
-        ))}
-      </div>
-      <div className={styles.grid}>
-        <div className={styles.row}>
-          {stepIds.map((stepId) => (
-            <label className={styles.lamp} key={stepId}>
-              <input
-                type="radio"
-                name="lamp"
-                id={"lamp" + "-" + stepId}
-                disabled
-                ref={(elm) => {
-                  if (!elm) return;
-                  lampsRef.current[stepId] = elm;
-                }}
-                className={styles.lamp__input}
-              />
-              <div className={styles.lamp__content} />
-            </label>
+    <div>
+      <div className="flex justify-between">
+        <div className={`${styles.labelList} w-14`}>
+          {samples.map((sample) => (
+            <div key={sample.name}>{sample.name}</div>
           ))}
         </div>
-        <div className={styles.cellList}>
-          {trackIds.map((trackId) => (
-            <div key={trackId} className={styles.row}>
-              {stepIds.map((stepId) => {
-                const id = trackId + "-" + stepId;
-                return (
-                  <label className={styles.cell} key={id}>
-                    <input
-                      id={id}
-                      type="checkbox"
-                      ref={(elm) => {
-                        if (!elm) return;
-                        if (!stepsRef.current[trackId]) {
-                          stepsRef.current[trackId] = [];
-                        }
-                        stepsRef.current[trackId][stepId] = elm;
-                      }}
-                      className={styles.cell__input}
-                    />
-                    <div
-                      className={styles.cell__content}
-                      onClick={() => handleCellContentClick(trackId, stepId)}
-                    />
-                  </label>
-                );
-              })}
-            </div>
-          ))}
+        <div className={styles.grid}>
+          <div className={styles.row}>
+            {stepIds.map((stepId) => (
+              <label className={styles.lamp} key={stepId}>
+                <input
+                  type="radio"
+                  name="lamp"
+                  id={"lamp" + "-" + stepId}
+                  disabled
+                  ref={(elm) => {
+                    if (!elm) return;
+                    lampsRef.current[stepId] = elm;
+                  }}
+                  className={styles.lamp__input}
+                />
+                <div className={styles.lamp__content} />
+              </label>
+            ))}
+          </div>
+          <div className={styles.cellList}>
+            {trackIds.map((trackId) => (
+              <div key={trackId} className={styles.row}>
+                {stepIds.map((stepId) => {
+                  const id = trackId + "-" + stepId;
+                  return (
+                    <label className={styles.cell} key={id}>
+                      <input
+                        id={id}
+                        type="checkbox"
+                        ref={(elm) => {
+                          if (!elm) return;
+                          if (!stepsRef.current[trackId]) {
+                            stepsRef.current[trackId] = [];
+                          }
+                          stepsRef.current[trackId][stepId] = elm;
+                        }}
+                        className={styles.cell__input}
+                      />
+                      <div
+                        className={styles.cell__content}
+                        onClick={() => handleCellContentClick(trackId, stepId)}
+                      />
+                    </label>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className={styles.controls}>

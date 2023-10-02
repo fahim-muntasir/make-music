@@ -142,18 +142,16 @@ const SharePage = () => {
       style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}
       className="bg-no-repeat pb-[303px]"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-2xl font-semibold font-poppins mt-5">Share song</h1>
         <div className="pb-4">
           <div className="mt-4">
             {!loading && (
-              <div className="flex bg-[#8A97DA] h-24 items-center rounded-md justify-between">
-                <div className="flex items-center">
-                  <div className="border-[5px] ml-8 h-20 border-white flex items-center p-3 rounded-3xl">
-                    <PiMusicNoteDuotone size={50} className="text-[#d4d0d0]" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-white text-4xl font-bowlby">
+              <div className="px-4 py-4 md:py-5 lg:py-5 md:flex lg:flex bg-[#8A97DA] items-center rounded-md justify-between">
+                <div className="flex items-center mb-4 md:mb-0 lg:mb-0">
+                  <i className="fa-solid fa-music text-4xl md:text-5xl lg:text-5xl text-white"></i>
+                  <div className="ml-5">
+                    <h3 className="text-white text-3xl md:text-4xl lg:text-4xl font-bowlby">
                       {song?.name}
                     </h3>
                     <p className="text-white font-poppins text-sm">
@@ -161,8 +159,8 @@ const SharePage = () => {
                     </p>
                   </div>
                 </div>
-                <div className="mr-8">
-                  <button className="px-9 py-2 font-poppins text-white text-lg bg-[#4BCE9C] rounded mx-3">
+                <div className="flex justify-end">
+                  <button className="px-5 py-2 md:px-9 lg:px-9 md:py-2 lg:py-2 text-white font-poppins text-lg hover:bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-3">
                     Preview
                   </button>
                 </div>
@@ -176,12 +174,12 @@ const SharePage = () => {
                 key={item.id}
                 className="mt-5 flex  justify-end items-center "
               >
-                <p className=" text-xl font-poppins font-medium ">
+                <p className=" text-lg md:text-xl lg:text-xl font-poppins font-medium ">
                   {item?.name}
                 </p>
                 <button
                   onClick={() => shareHandler(item.id, item.name, item.sharing)}
-                  className={`px-9 py-2 text-black text-xl font-poppins font-medium w-48 ${
+                  className={`py-2 text-black text-lg md:text-xl lg:text-xl font-poppins font-medium w-36 md:w-48 lg:w-48 ${
                     item.sharing
                       ? "bg-[#8A97DA] text-white"
                       : "hover:bg-[#8A97DA] hover:text-white"
@@ -192,7 +190,7 @@ const SharePage = () => {
                 </button>
                 <button
                   onClick={() => notSharedHandler(item.id, item.name)}
-                  className="px-4 py-2 text-black text-xl font-poppins font-medium w-48 hover:bg-[#8A97DA] hover:text-white rounded border-2 border-[#8A97DA] "
+                  className="py-2 text-black text-lg md:text-xl lg:text-xl font-poppins font-medium w-36 md:w-48 lg:w-48 hover:bg-[#8A97DA] hover:text-white rounded border-2 border-[#8A97DA] "
                   disabled={notShareLoadin}
                 >
                   Not Shared

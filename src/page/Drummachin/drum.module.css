@@ -1,6 +1,6 @@
 /* Variables */
 :root {
-    --cellHeight: 40px;
+    --cellHeight: 60px;
     --rowGap: 8px;
   }
   
@@ -12,12 +12,11 @@
     grid-template-columns: 1fr auto;
   }
   
-  .machine {
+  /* .machine {
     display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 8px;
+    grid-template-columns: 56px 1fr;
     row-gap: 16px;
-  }
+  } */
   
   .labelList {
     align-self: flex-end;
@@ -30,12 +29,18 @@
     height: var(--cellHeight);
     display: grid;
     place-content: center;
+
+    @media only screen and (max-width: 600px) {
+      height: 40px;
+    }
   }
   
   .grid {
+    width: 100%;
     display: flex;
     flex-direction: column;
     row-gap: var(--rowGap);
+    padding: 0 1.25rem;
   }
   
   .lamp__input {
@@ -58,8 +63,9 @@
     width: 14px;
     height: 14px;
     border-radius: 8px;
-    background-color: #ccc;
+    border: 1px solid #ccc;
     margin: 0 8px;
+    margin: auto;
   }
   
   .cellList {
@@ -69,13 +75,25 @@
   }
   
   .row {
-    display: flex;
-    column-gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    column-gap: 15px;
+
+    @media only screen and (max-width: 768px) {
+      column-gap: 5px;
+      /* padding: 0 10px; */
+    }
+
+    /* @media only screen and (max-width: 600px) {
+      grid-template-columns: repeat(16, 20px);
+      column-gap: 0;
+      justify-content: space-between;
+    } */
   }
   
-  .row > *:nth-child(4n):not(:last-child) {
+  /* .row > *:nth-child(4n):not(:last-child) {
     margin-right: 8px;
-  }
+  } */
   
   .cell {
     cursor: pointer;
@@ -103,10 +121,15 @@
   }
   
   .cell__content {
-    width: 30px;
+    /* width: 30px; */
     height: var(--cellHeight);
     background-color: transparent;
     border: 1px solid #8A97DA;
+    border-radius: 5px;
+
+    @media only screen and (max-width: 600px) {
+      height: 40px;
+    }
   }
   
   .fader {

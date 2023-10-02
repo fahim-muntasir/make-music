@@ -25,7 +25,7 @@ const Home = () => {
       style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}
       className="bg-no-repeat"
     >
-      <div className="max-w-7xl mx-auto pt-5 ">
+      <div className="max-w-7xl mx-auto pt-5 px-4">
         <Link
           to="/edit"
           className="border border-[#8A97DA] hover:bg-[#8A97DA] hover:text-gray-50 w-full flex justify-center items-center py-3 text-2xl text-[#8A97DA] font-poppins  rounded-md"
