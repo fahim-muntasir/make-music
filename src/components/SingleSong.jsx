@@ -24,7 +24,6 @@ export default function SingleSong({
   const samples = sounds[type];
   const numberOfSteps = 16;
 
-  const trackIds = [...Array(samples.length).keys()];
   const stepIds = [...Array(numberOfSteps).keys()];
 
   const handleStartClick = async () => {
@@ -55,7 +54,7 @@ export default function SingleSong({
   const createSequenceFromRecording = (recordingData) => {
     return new Tone.Sequence(
       (time, step) => {
-        recordingData.forEach((trackState, trackIndex) => {
+        recordingData?.forEach((trackState, trackIndex) => {
           const trackKey = String.fromCharCode(65 + trackIndex);
           if (trackState[trackKey][step]) {
             tracksRef.current[trackIndex].sampler.triggerAttack(NOTE, time);
@@ -76,7 +75,7 @@ export default function SingleSong({
       stepsRef.current = recordData;
     }
 
-    tracksRef.current = samples.map((sample, i) => ({
+    tracksRef.current = samples?.map((sample, i) => ({
       id: i,
       sampler: new Tone.Sampler({
         urls: {
@@ -85,7 +84,7 @@ export default function SingleSong({
       }).toDestination(),
     }));
 
-    lampsRef.current = stepIds.map(() => ({
+    lampsRef.current = stepIds?.map(() => ({
       checked: false,
     }));
 
@@ -93,7 +92,7 @@ export default function SingleSong({
 
     return () => {
       seqRef.current?.dispose();
-      tracksRef.current.forEach((trk) => {
+      tracksRef.current?.forEach((trk) => {
         trk.sampler.dispose();
       });
     };
@@ -111,14 +110,6 @@ export default function SingleSong({
         </div>
       </div>
       <div className="flex justify-end">
-        {sharebutton && (
-          <Link
-            to={`/share/${id}`}
-            className=" px-5 py-2 md:px-9 lg:px-9 md:py-2 lg:py-2 text-white font-poppins text-lg hover:bg-[#4BCE9C] rounded border border-[#4BCE9C]"
-          >
-            Share
-          </Link>
-        )}
         <button
           onClick={handleStartClick}
           className="px-5 py-2 md:px-9 lg:px-9 md:py-2 lg:py-2 text-white font-poppins text-lg hover:bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-3"

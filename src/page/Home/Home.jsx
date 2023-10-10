@@ -31,15 +31,9 @@ const Home = () => {
   return (
     <div
       style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}
-      className="bg-no-repeat"
+      className="bg-no-repeat pb-5"
     >
       <div className="max-w-7xl mx-auto pt-5 px-4">
-        <Link
-          to="/edit/new"
-          className="border border-[#8A97DA] hover:bg-[#8A97DA] hover:text-gray-50 w-full flex justify-center items-center py-3 text-2xl text-[#8A97DA] font-poppins  rounded-md"
-        >
-          Create +
-        </Link>
         <div className="mt-5 ">
           <h1 className="text-2xl font-semibold">
             All songs{" "}
@@ -56,19 +50,10 @@ const Home = () => {
                 date={item?.datetime}
                 recording_data={item?.recording_data}
                 type={item?.type}
-                sharebutton={true}
                 editbutton={true}
               />
             ))}
           </div>
-        </div>
-        <div className="pb-5 mt-5">
-          <Link
-            to="/edit/new"
-            className="border border-[#8A97DA] hover:bg-[#8A97DA] hover:text-white w-full flex justify-center items-center py-3 text-2xl text-[#8A97DA] font-poppins  rounded-md"
-          >
-            Create +
-          </Link>
         </div>
       </div>
     </div>

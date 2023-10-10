@@ -1,38 +1,29 @@
 {
   "drums": [
-    { "url": "/drums1.mp3", "name": "B" },
-    { "url": "/drums2.mp3", "name": "A" },
-    { "url": "/drums3.mp3", "name": "G" },
-    { "url": "/drums4.mp3", "name": "F" },
-    { "url": "/drums5.mp3", "name": "E" },
-    { "url": "/drums6.mp3", "name": "D" },
-    { "url": "/drums7.mp3", "name": "C" }
+    { "url": "/drums/drums1.mp3", "name": "A" },
+    { "url": "/drums/drums2.mp3", "name": "B" },
+    { "url": "/drums/drums3.mp3", "name": "C" },
+    { "url": "/drums/drums4.mp3", "name": "D" },
+    { "url": "/drums/drums5.mp3", "name": "E" },
+    { "url": "/drums/drums6.mp3", "name": "F" },
+    { "url": "/drums/drums7.mp3", "name": "G" }
   ],
   "guitar": [
-    { "url": "/drums1.mp3", "name": "B" },
-    { "url": "/drums2.mp3", "name": "A" },
-    { "url": "/drums3.mp3", "name": "G" },
-    { "url": "/drums4.mp3", "name": "F" },
-    { "url": "/drums5.mp3", "name": "E" },
-    { "url": "/drums6.mp3", "name": "D" },
-    { "url": "/drums7.mp3", "name": "C" }
+    { "url": "/guitar/B4.mp3", "name": "A" },
+    { "url": "/guitar/A4.mp3", "name": "B" },
+    { "url": "/guitar/G4.mp3", "name": "C" },
+    { "url": "/guitar/F4.mp3", "name": "D" },
+    { "url": "/guitar/E4.mp3", "name": "E" },
+    { "url": "/guitar/D4.mp3", "name": "F" },
+    { "url": "/guitar/C4.mp3", "name": "G" }
   ],
   "piano": [
-    { "url": "/drums1.mp3", "name": "B" },
-    { "url": "/drums2.mp3", "name": "A" },
-    { "url": "/drums3.mp3", "name": "G" },
-    { "url": "/drums4.mp3", "name": "F" },
-    { "url": "/drums5.mp3", "name": "E" },
-    { "url": "/drums6.mp3", "name": "D" },
-    { "url": "/drums7.mp3", "name": "C" }
-  ],
-  "french horn": [
-    { "url": "/drums1.mp3", "name": "B" },
-    { "url": "/drums2.mp3", "name": "A" },
-    { "url": "/drums3.mp3", "name": "G" },
-    { "url": "/drums4.mp3", "name": "F" },
-    { "url": "/drums5.mp3", "name": "E" },
-    { "url": "/drums6.mp3", "name": "D" },
-    { "url": "/drums7.mp3", "name": "C" }
+    { "url": "/piano/B4.mp3", "name": "A" },
+    { "url": "/piano/A4.mp3", "name": "B" },
+    { "url": "/piano/G4.mp3", "name": "C" },
+    { "url": "/piano/F4.mp3", "name": "D" },
+    { "url": "/piano/E4.mp3", "name": "E" },
+    { "url": "/piano/D4.mp3", "name": "F" },
+    { "url": "/piano/C4.mp3", "name": "G" }
   ]
 }

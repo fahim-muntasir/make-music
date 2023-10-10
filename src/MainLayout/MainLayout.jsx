@@ -1,16 +1,16 @@
-import React from 'react';
-import Header from '../page/Header/Header';
-import { Outlet } from 'react-router-dom';
-import Footer from '../page/Footer/Footer';
+import React from "react";
+import Header from "../components/Header";
+import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const MainLayout = () => {
-    return (
-        <div className='max-w-screen-2xl mx-auto'>
-            <Header />
-                <Outlet />
-            <Footer />
-        </div>
-    );
+  return (
+    <div className="max-w-screen-2xl mx-auto">
+      <Header />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 };
 
 export default MainLayout;

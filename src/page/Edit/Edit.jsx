@@ -1,4 +1,3 @@
-import bg from "../../assets/bg1.jpg";
 import sounds from "../../sounds.json";
 import React, { useState, useEffect, useRef } from "react";
 import * as Tone from "tone";
@@ -6,11 +5,31 @@ import styles from "./style.module.css";
 import SongType from "../../components/SongType";
 import { baseURL, apiKey } from "../../config/config.json";
 import { useParams, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import bg from "../../assets/bg1.jpg";
 
-const NOTE = "C2";
+const NOTES = [
+  "C2",
+  "D2",
+  "E2",
+  "F2",
+  "G2",
+  "A2",
+  "B2",
+  "C3",
+  "D3",
+  "E3",
+  "F3",
+  "G3",
+  "A3",
+  "B3",
+  "C4",
+  "D4",
+];
 
 const Edit = () => {
-  const [activeButton, setActiveButton] = useState("guitar");
+  const location = useLocation();
+  const [activeButton, setActiveButton] = useState("piano");
   const [isPlaying, setIsPlaying] = useState(false);
   const [songName, setSongName] = useState("");
   const [isloading, setIsLoading] = useState(false);
@@ -34,9 +53,17 @@ const Edit = () => {
       Tone.Transport.stop();
       setIsPlaying(false);
     } else {
-      await Tone.start();
-      Tone.Transport.start();
-      setIsPlaying(true);
+      try {
+        await Tone.start();
+
+        // You should start the Tone.Transport and Sequence here.
+        seqRef.current.start(0);
+        Tone.Transport.start();
+
+        setIsPlaying(true);
+      } catch (error) {
+        console.error("Audio start error:", error);
+      }
     }
   };
 
@@ -124,15 +151,16 @@ const Edit = () => {
       id: i,
       sampler: new Tone.Sampler({
         urls: {
-          [NOTE]: sample.url,
+          [NOTES[i % NOTES.length]]: sample.url,
         },
+        release: 1,
       }).toDestination(),
     }));
     seqRef.current = new Tone.Sequence(
       (time, step) => {
         tracksRef.current.map((trk) => {
           if (stepsRef.current[trk.id]?.[step]?.checked) {
-            trk.sampler.triggerAttack(NOTE, time);
+            trk.sampler.triggerAttack(NOTES[trk.id % NOTES.length], time);
           }
           lampsRef.current[step].checked = true;
         });
@@ -154,7 +182,9 @@ const Edit = () => {
 
   const handleCellContentClick = (trackId, stepId) => {
     if (stepsRef.current[trackId]?.[stepId]) {
-      tracksRef.current[trackId].sampler.triggerAttackRelease(NOTE, "16n");
+      const noteIndex = (trackId * numberOfSteps + stepId) % NOTES.length;
+      const note = NOTES[noteIndex];
+      tracksRef.current[trackId].sampler.triggerAttackRelease(note, "16n");
     }
   };
 

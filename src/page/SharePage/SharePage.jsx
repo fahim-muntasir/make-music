@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import bg from "../../assets/bg1.jpg";
 import { baseURL, apiKey } from "../../config/config.json";
 import { useParams } from "react-router-dom";
 import SingleSong from "../../components/SingleSong";
@@ -138,12 +137,11 @@ const SharePage = () => {
   };
 
   return (
-    <div
-      style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}
-      className="bg-no-repeat pb-[303px]"
-    >
+    <div className="pb-[303px]">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-2xl font-semibold font-poppins mt-5">Share song</h1>
+        <h1 className="text-2xl font-semibold mb-4 text-[#800080] font-poppins mt-5">
+          Share This Sample
+        </h1>
         <div className="pb-4">
           <div className="mt-4">
             {!loading && song.id && (
@@ -170,16 +168,16 @@ const SharePage = () => {
                   onClick={() => shareHandler(item.id, item.name, item.sharing)}
                   className={`py-2 text-black text-lg md:text-xl lg:text-xl font-poppins font-medium w-36 md:w-48 lg:w-48 ${
                     item.sharing
-                      ? "bg-[#8A97DA] text-white"
-                      : "hover:bg-[#8A97DA] hover:text-white"
-                  } rounded border-2 border-[#8A97DA] mx-3`}
+                      ? "bg-[#800080] text-white"
+                      : "hover:bg-[#800080] hover:text-white"
+                  } rounded border-2 border-[#800080] mx-3`}
                   disabled={shareLoading}
                 >
                   {item.sharing ? "Shared" : "Share"}
                 </button>
                 <button
                   onClick={() => notSharedHandler(item.id, item.name)}
-                  className="py-2 text-black text-lg md:text-xl lg:text-xl font-poppins font-medium w-36 md:w-48 lg:w-48 hover:bg-[#8A97DA] hover:text-white rounded border-2 border-[#8A97DA] "
+                  className="py-2 text-black text-lg md:text-xl lg:text-xl font-poppins font-medium w-36 md:w-48 lg:w-48 hover:bg-[#800080] hover:text-white rounded border-2 border-[#800080] "
                   disabled={notShareLoadin}
                 >
                   Not Shared
