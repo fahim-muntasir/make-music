@@ -35,7 +35,7 @@ const Home = () => {
       <div className="max-w-7xl mx-auto pt-5 px-4">
         <div className="mt-5 ">
           <h1 className="text-2xl font-semibold">
-            All songs{" "}
+            All Musics
             {isloading && (
               <i className="fa-solid fa-spinner text-lg animate-spin ml-1 text-[#8A97DA]"></i>
             )}

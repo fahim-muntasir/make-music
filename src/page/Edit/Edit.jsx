@@ -4,7 +4,7 @@ import * as Tone from "tone";
 import styles from "./style.module.css";
 import SongType from "../../components/SongType";
 import { baseURL } from "../../config/config.json";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import bg from "../../assets/bg1.jpg";
 
 const NOTES = [
@@ -27,6 +27,7 @@ const NOTES = [
 ];
 
 const Edit = () => {
+  const location = useLocation();
   const [activeButton, setActiveButton] = useState("piano");
   const [isPlaying, setIsPlaying] = useState(false);
   const [songName, setSongName] = useState("");
@@ -197,9 +198,15 @@ const Edit = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="px-5">
-          <h1 className="text-2xl font-semibold mt-5 font-poppins ml-2 md:ml-0">
-            Edit song
-          </h1>
+          {location.pathname === "/edit/new" ? (
+            <h1 className="text-2xl font-semibold mt-5 font-poppins ml-2 md:ml-0">
+              Create music
+            </h1>
+          ) : (
+            <h1 className="text-2xl font-semibold mt-5 font-poppins ml-2 md:ml-0">
+              Edit music
+            </h1>
+          )}
           <div className=" py-4 mt-4 md:flex lg:flex px-5 bg-[#8A97DA] items-center rounded-md md:gap-2 lg:gap-2 md:justify-between lg:justify-between">
             <input
               onChange={(e) => setSongName(e.target.value)}
