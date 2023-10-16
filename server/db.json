@@ -1,0 +1,26 @@
+{
+  "sample": [
+    {
+      "type": "guitar",
+      "name": "Test song",
+      "recording_data": "[{\"A\":[true,false,false,false,true,false,false,false,true,false,false,false,true,false,false,true]},{\"B\":[false,false,true,false,false,false,true,false,false,false,true,false,false,false,true,false]},{\"C\":[false,false,false,false,true,true,true,false,false,false,false,false,false,false,false,false]},{\"D\":[false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false]},{\"E\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"F\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"G\":[true,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true]}]",
+      "datetime": 1697467596046,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "api_key": "p830PIpli9",
+      "name": "second song",
+      "recording_data": "[{\"A\":[true,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false]},{\"B\":[false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,true]},{\"C\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"D\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"E\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"F\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"G\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}]",
+      "type": "french horn",
+      "datetime": "2023-10-02T15:25:08.631561Z"
+    },
+    {
+      "type": "drums",
+      "name": "New song",
+      "recording_data": "[{\"A\":[false,false,false,false,false,false,false,true,false,false,false,false,false,true,false,false]},{\"B\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"C\":[false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false]},{\"D\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"E\":[false,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false]},{\"F\":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},{\"G\":[true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true]}]",
+      "datetime": 1697467559918,
+      "id": 3
+    }
+  ]
+}

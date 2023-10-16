@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import bg from "../../assets/bg1.jpg";
-import { Link } from "react-router-dom";
-import { baseURL, apiKey } from "../../config/config.json";
+import { baseURL } from "../../config/config.json";
 import SingleSong from "../../components/SingleSong";
 
 const Home = () => {
@@ -11,7 +10,7 @@ const Home = () => {
   const getMusics = async () => {
     setIsLoading(true);
     try {
-      const url = `${baseURL}/sample/?api_key=${apiKey}`;
+      const url = `${baseURL}/sample`;
       const response = await fetch(url);
       const musics = await response.json();
 

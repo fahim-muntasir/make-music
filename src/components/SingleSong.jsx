@@ -63,7 +63,7 @@ export default function SingleSong({
         lampsRef.current[step].checked = true;
       },
       stepIds,
-      "8n"
+      "16n"
     );
   };
 

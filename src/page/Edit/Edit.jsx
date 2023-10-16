@@ -3,9 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import * as Tone from "tone";
 import styles from "./style.module.css";
 import SongType from "../../components/SongType";
-import { baseURL, apiKey } from "../../config/config.json";
+import { baseURL } from "../../config/config.json";
 import { useParams, useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import bg from "../../assets/bg1.jpg";
 
 const NOTES = [
@@ -28,7 +27,6 @@ const NOTES = [
 ];
 
 const Edit = () => {
-  const location = useLocation();
   const [activeButton, setActiveButton] = useState("piano");
   const [isPlaying, setIsPlaying] = useState(false);
   const [songName, setSongName] = useState("");
@@ -82,11 +80,11 @@ const Edit = () => {
         type: activeButton,
         name: songName,
         recording_data: JSON.stringify(recording_data),
-        api_key: apiKey,
+        datetime: Date.now(),
       };
 
       if (songId === "new") {
-        const url = `${baseURL}/sample/?api_key=${apiKey}`;
+        const url = `${baseURL}/sample`;
         const response = await fetch(url, {
           method: "POST",
           headers: {
@@ -97,7 +95,7 @@ const Edit = () => {
         });
         await response.json();
       } else {
-        const url = `${baseURL}/sample/${songId}/?api_key=${apiKey}`;
+        const url = `${baseURL}/sample/${songId}`;
         const response = await fetch(url, {
           method: "PUT",
           headers: {
@@ -118,7 +116,7 @@ const Edit = () => {
   };
 
   async function getSong(id) {
-    const url = `${baseURL}/sample/${id}/?api_key=${apiKey}`;
+    const url = `${baseURL}/sample/${id}`;
     const response = await fetch(url);
     const json = await response.json();
     return json;
@@ -166,7 +164,7 @@ const Edit = () => {
         });
       },
       [...stepIds],
-      "8n"
+      "16n"
     );
     seqRef.current.start(0);
 
@@ -219,7 +217,7 @@ const Edit = () => {
               </button>
               <button
                 onClick={submitHandler}
-                className="px-3 py-2 text-white font-poppins hover:bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-2"
+                className="px-3 py-2 text-white font-poppins bg-[#4BCE9C] rounded border border-[#4BCE9C] mx-2"
                 disabled={isloading}
               >
                 Save
